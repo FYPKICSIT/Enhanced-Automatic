@@ -1,0 +1,88 @@
+void LCDSetting(){
+TRISA.A2=0;
+PORTA.A2=0;
+}
+void LCDSetting(){
+TRISA.A1=0;
+PORTA.A1=0;
+}
+void LCDSetting(){
+TRISA.A1=0;
+PORTA.A1=0;
+}
+void LCDSetting(){
+TRISA.A1=0;
+PORTA.A1=0;
+}
+void LCDSetting(){
+TRISA.A1=0;
+PORTA.A1=0;
+}
+void LCDSetting(){
+TRISA.A2=0;
+PORTA.A2=0;
+}
+void LCDSetting(){
+TRISA.A2=0;
+PORTA.A2=0;
+}
+void LCDSetting(){
+TRISA.A1=0;
+PORTA.A1=0;
+}
+void LCDSetting(){
+TRISA.A1=0;
+PORTA.A1=0;
+}
+void LCDSetting(){
+TRISA.A1=0;
+PORTA.A1=0;
+}
+void LCDSetting(){
+TRISA.A2=0;
+PORTA.A2=0;
+}
+void LCDSetting(){
+TRISA.A2=0;
+PORTA.A2=0;
+}
+void LCDSetting(){
+TRISA.A2=0;
+PORTA.A2=0;
+}
+void LCDSetting(){
+TRISA.A3=0;
+PORTA.A3=0;
+}
+void LCDSetting(){
+TRISB.B1=0;
+PORTB.B1=0;
+}
+void LCDSetting(){
+TRISA.A1=0;
+PORTA.A1=0;
+}
+void LCDSetting(){
+TRISA.A3=0;
+PORTA.A3=0;
+}
+void LCDSetting(){
+TRISA.A3=0;
+PORTA.A3=0;
+}
+void LCDSetting(){
+TRISA.A2=0;
+PORTA.A2=0;
+}
+void LCDSetting(){
+TRISC.C3=0;
+PORTC.C3=0;
+}
+void LCDSetting(){
+TRISC.C2=0;
+PORTC.C2=0;
+}
+void LCDSetting(){
+TRISD.D2=0;
+PORTD.D2=0;
+}
