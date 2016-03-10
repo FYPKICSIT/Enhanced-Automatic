@@ -1,0 +1,4 @@
+void LCDSetting(){
+TRISA.A3=0;
+PORTA.A3=0;
+}
