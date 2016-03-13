@@ -11,9 +11,11 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -32,12 +34,16 @@ public class Main_Menu extends javax.swing.JFrame implements MouseListener{
     JButton b1;
     JLabel l1;
     String deviceToCreate;
+    static Main_Menu thiss;
     private boolean readyToCreateNewDevice;
+     ArrayList<String> devices_list=new ArrayList<>();
+    DefaultListModel list_model=new DefaultListModel();
     public Main_Menu() {
         initComponents();
         pfev.addMouseListener(this);
         deviceToCreate="";
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("robot.png")));
+         thiss=this;
     }
 
     @SuppressWarnings("unchecked")
@@ -60,7 +66,7 @@ public class Main_Menu extends javax.swing.JFrame implements MouseListener{
         jLabel2 = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        Main_comp_list = new javax.swing.JList();
         jPanel3 = new JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -192,17 +198,17 @@ public class Main_Menu extends javax.swing.JFrame implements MouseListener{
             }
         });
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        Main_comp_list.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "None", "LED", "LCD", "Stepper Motor" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jList1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        Main_comp_list.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                jList1ValueChanged(evt);
+                Main_comp_listValueChanged(evt);
             }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(Main_comp_list);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -369,18 +375,32 @@ public class Main_Menu extends javax.swing.JFrame implements MouseListener{
         new Pick_component().setVisible(true);
     }//GEN-LAST:event_jButton7MouseClicked
 
-    private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
+    private void Main_comp_listValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_Main_comp_listValueChanged
        // jList1.setSelectedIndex(0);
         readyToCreateNewDevice=true;
-        switch(jList1.getSelectedIndex()){
+        switch(Main_comp_list.getSelectedIndex()){
             case 0:
                 break;
             case 1:
                 deviceToCreate="led";
                 break;
         }
-    }//GEN-LAST:event_jList1ValueChanged
-
+    }//GEN-LAST:event_Main_comp_listValueChanged
+    public  void setlist(ArrayList<String> data)
+    {
+        
+        for(int a=0;a<data.size();a++)
+        {
+            devices_list.add(data.get(a));
+        }
+            list_model.clear();
+        
+         for(int a=0;a<devices_list.size();a++)
+            list_model.addElement(devices_list.get(a));
+         
+       
+         Main_comp_list.setModel(list_model);
+    }
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
@@ -438,6 +458,7 @@ public class Main_Menu extends javax.swing.JFrame implements MouseListener{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JList Main_comp_list;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -449,7 +470,6 @@ public class Main_Menu extends javax.swing.JFrame implements MouseListener{
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList jList1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -488,7 +508,7 @@ public class Main_Menu extends javax.swing.JFrame implements MouseListener{
     //  JOptionPane.showMessageDialog(rootPane,"Entered From menu");
       if(readyToCreateNewDevice){
           pfev.setDrawingItem(deviceToCreate);
-          jList1.setSelectedIndex(0);
+          Main_comp_list.setSelectedIndex(0);
           readyToCreateNewDevice=false;
       }
     }

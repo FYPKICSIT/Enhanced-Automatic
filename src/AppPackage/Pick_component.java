@@ -5,6 +5,9 @@
  */
 package AppPackage;
 
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,6 +19,9 @@ public class Pick_component extends javax.swing.JFrame {
     /**
      * Creates new form Pick_component
      */
+    String selected_comp="";
+    ArrayList<String> Selected_list=new ArrayList<>();
+    DefaultListModel compp_list=new DefaultListModel();
     public Pick_component() {
         initComponents();
     }
@@ -30,7 +36,7 @@ public class Pick_component extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        comp_list = new javax.swing.JList();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         sys_pre_label = new javax.swing.JLabel();
@@ -39,32 +45,32 @@ public class Pick_component extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList();
+        select_comp_list = new javax.swing.JList();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        pick_ok_btn = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        add_list_btn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pick Components");
         setName("Pick Components"); // NOI18N
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Pic18f452", "Pic18f453", "Stepper", "LCD 8 bit", "LCD 4 bit" };
+        comp_list.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Temparature Sensor", "Pressure Sensor", "Pic18f452", "Pic18f458", "Pic16f877A", "LCD 8 bit", "LCD 4 bit", "Keypad", "ADC", " " };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+        comp_list.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jList1MouseClicked(evt);
+                comp_listMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(comp_list);
 
         jLabel1.setText("Components");
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
 
-        sys_pre_label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/stepperMottor.png"))); // NOI18N
         sys_pre_label.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -95,21 +101,43 @@ public class Pick_component extends javax.swing.JFrame {
 
         jLabel3.setText("PCB Preview");
 
-        jList2.setModel(new javax.swing.AbstractListModel() {
+        select_comp_list.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "None Selected" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList2);
+        select_comp_list.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                select_comp_listMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(select_comp_list);
 
         jLabel4.setText("Selected Components");
 
-        jButton1.setText("Ok");
+        pick_ok_btn.setText("Ok");
+        pick_ok_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pick_ok_btnMouseClicked(evt);
+            }
+        });
+        pick_ok_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pick_ok_btnActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancel");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        add_list_btn.setText("Add to list");
+        add_list_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                add_list_btnMouseClicked(evt);
             }
         });
 
@@ -120,9 +148,11 @@ public class Pick_component extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                            .addComponent(add_list_btn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2)
                             .addComponent(jScrollPane1)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,10 +170,9 @@ public class Pick_component extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(33, 33, 33))))
-                    .addComponent(jLabel4))
-                .addContainerGap(32, Short.MAX_VALUE))
+                                .addComponent(pick_ok_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(33, 33, 33)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,18 +187,20 @@ public class Pick_component extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(add_list_btn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
+                            .addComponent(pick_ok_btn)
                             .addComponent(jButton2))
-                        .addGap(21, 21, 21))))
+                        .addGap(21, 21, 21))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         getAccessibleContext().setAccessibleParent(this);
@@ -182,10 +213,58 @@ public class Pick_component extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+    private void comp_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comp_listMouseClicked
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "clicked");
-    }//GEN-LAST:event_jList1MouseClicked
+        
+        
+        JList list=(JList)evt.getSource();
+        
+        //JOptionPane.showMessageDialog(null, "clicked "+list.getSelectedValue());
+        selected_comp=list.getSelectedValue().toString();
+        
+        sys_pre_label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/stepperMottor.png")));
+        
+    }//GEN-LAST:event_comp_listMouseClicked
+
+    private void add_list_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_list_btnMouseClicked
+        // TODO add your handling code here:
+       if(selected_comp!="")
+       {
+        Selected_list.add(selected_comp);
+        
+        compp_list.clear();
+        for(int a=0;a<Selected_list.size();a++)
+            compp_list.addElement(Selected_list.get(a));
+        
+        select_comp_list.setModel(compp_list);
+        selected_comp="";
+       }else
+       {
+           JOptionPane.showMessageDialog(select_comp_list, "no Components Selected");
+       }
+    }//GEN-LAST:event_add_list_btnMouseClicked
+
+    private void select_comp_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_select_comp_listMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_select_comp_listMouseClicked
+
+    private void pick_ok_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pick_ok_btnMouseClicked
+        // TODO add your handling code here:
+       // Main_Menu.Main_comp_list.setModel(compp_list);
+        //Main_Menu.setlist(Selected_list);
+        
+        this.dispose();
+        Main_Menu m=Main_Menu.thiss;
+        m.setlist(Selected_list);
+        
+        
+        
+    }//GEN-LAST:event_pick_ok_btnMouseClicked
+
+    private void pick_ok_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pick_ok_btnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pick_ok_btnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,6 +292,9 @@ public class Pick_component extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Pick_component.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -223,19 +305,20 @@ public class Pick_component extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton add_list_btn;
+    private javax.swing.JList comp_list;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JList jList1;
-    private javax.swing.JList jList2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel pcb_pre_label;
+    private javax.swing.JButton pick_ok_btn;
+    private javax.swing.JList select_comp_list;
     private javax.swing.JLabel sys_pre_label;
     // End of variables declaration//GEN-END:variables
 }

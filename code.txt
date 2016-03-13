@@ -1,0 +1,7 @@
+void Main()
+{
+	while(1)
+	{
+
+	}
+}
