@@ -101,11 +101,10 @@ public class ledProperties extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+  
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         char port=((jComboBox1.getSelectedItem().toString()).toCharArray())[0];
         int bit=Integer.parseInt(""+jComboBox2.getSelectedItem());
-        JOptionPane.showMessageDialog(rootPane,""+bit+" +++ "+jComboBox2.getSelectedItem());
         l.setBitNo(bit);
         l.setPort(port);
         

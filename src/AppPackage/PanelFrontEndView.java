@@ -199,6 +199,7 @@ public class PanelFrontEndView extends JPanel implements MouseListener, MouseMot
                //JOptionPane.showMessageDialog(null, "inside b");
                PORTA[l.getBitNo()]=0;
                PORTsA[l.getBitNo()]=l;
+               
            }
            else if((l.getPort()+"").equals("B"))
            {
